@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPS GO 产品设计方案 — NPS Pulse</title>
+<style>
+  :root { --primary: #2563EB; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1e293b; line-height: 1.8; background: #f8fafc; }
+  .container { max-width: 880px; margin: 0 auto; padding: 40px 24px; }
+  .back { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-size: 0.9rem; }
+  .back:hover { text-decoration: underline; }
+  h1 { font-size: 1.8rem; color: var(--primary); margin: 32px 0 12px; }
+  h2 { font-size: 1.4rem; color: var(--primary); margin: 32px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 1.15rem; color: #334155; margin: 24px 0 8px; }
+  h4 { font-size: 1rem; color: #475569; margin: 16px 0 6px; }
+  p { margin: 6px 0; }
+  ul, ol { padding-left: 24px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 0.88rem; }
+  th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
+  th { background: #f1f5f9; font-weight: 600; }
+  tr:hover { background: #f8fafc; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+  pre { background: #1e293b; color: #e2e8f0; padding: 14px; border-radius: 8px; overflow-x: auto; margin: 10px 0; font-size: 0.85rem; }
+  pre code { background: none; padding: 0; }
+  blockquote { border-left: 4px solid var(--primary); padding: 10px 16px; margin: 10px 0; background: #eff6ff; border-radius: 0 8px 8px 0; }
+  hr { border: none; height: 2px; background: #e2e8f0; margin: 28px 0; }
+  strong { color: #0f172a; }
+</style>
+</head>
+<body>
+<div class="container">
+<a class="back" href="index.html">← 返回文档中心</a>
+<h1>NPS GO — 产品设计方案</h1>
+
+<blockquote><p><strong>文档版本:</strong> v1.0  </p></blockquote>
+<blockquote><p><strong>日期:</strong> 2026-07-05  </p></blockquote>
+<blockquote><p><strong>产品定位:</strong> 面向个人品牌主理人和微型商家的"快速入门客户满意度管理系统"  </p></blockquote>
+<blockquote><p><strong>目标用户:</strong> 潮牌主理人、餐厅老板、美业工作室、小电商店主等  </p></blockquote>
+<blockquote><p><strong>所属:</strong> NPS Pulse</p></blockquote>
+
+<hr>
+
+<h2>目录</h2>
+
+<li><a href="#1-产品组件设计">产品组件设计</a></li>
+<li><a href="#2-服务流程">服务流程</a></li>
+<li><a href="#3-工具选型">工具选型</a></li>
+<li><a href="#4-定价建议">定价建议</a></li>
+<li><a href="#5-附录">附录</a></li>
+
+<hr>
+
+<h2>1. 产品组件设计</h2>
+
+<p>NPS GO 不是一个纯软件产品，而是一套 <strong>"模板 + 工具 + 指导"的组合系统</strong>。共包含 5 个核心组件：</p>
+
+<h3>1.1 NPS 问卷模板库</h3>
+
+<strong>目标：</strong> 让客户 10 分钟内搭建出一份专业的 NPS 问卷，不需要任何专业知识。
+
+<strong>设计原则：</strong>
+<ul><li>按行业分类，开箱即用</li>
+<li>问卷结构统一但内容行业化</li>
+<li>控制在 2 分钟内完成（移动端优先）</li>
+</ul>
+<strong>行业模板清单（首发 4 个行业）：</strong>
+
+<table><thead><tr><th>行业</th><th>模板名称</th><th>核心驱动维度</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>餐饮</th><th>NPS GO · 餐饮版</th><th>菜品口味、食品安全、服务态度、环境氛围、性价比、上菜速度</th></tr></thead>
+<tr><td>美业</td><td>NPS GO · 美业版</td><td>技师专业度、沟通理解、产品效果、卫生安全、服务细节、隐私保护</td></tr>
+<tr><td>潮牌/零售</td><td>NPS GO · 潮牌版</td><td>产品设计、限量稀缺感、社群文化、穿搭场景、线下体验</td></tr>
+<tr><td>小电商/私域</td><td>NPS GO · 电商版</td><td>商品描述一致性、物流速度、包装体验、售后响应、私域服务</td></tr>
+</table>
+<strong>每个模板的标准结构：</strong>
+
+<pre><code>┌─ 开场语（30秒说明）
+<p>├─ 核心 NPS 题（0-10 分推荐度）</p>
+<p>├─ 驱动因素深挖（5-8 题，行业定制）</p>
+<p>├─ 开放题："如果我们能改进一点，您最希望是？"</p>
+<p>├─ 用户标签（消费频次/客单价/获客渠道）</p>
+<p>└─ 致谢 + 激励（优惠券/积分/抽奖入口）</p>
+</code></pre>
+
+<strong>交付物：</strong>
+<ul><li>可直接导入问卷平台的模板文件</li>
+<li>每题的出题逻辑说明（为什么问这道题）</li>
+<li>推荐发放时机说明（消费后多久发、通过什么渠道发）</li>
+</ul>
+<hr>
+
+<h3>1.2 数据分析看板</h3>
+
+<strong>目标：</strong> 让客户看到数据后 5 秒内理解"我的客户满意度怎么样"。
+
+<strong>看板层级（3 层）：</strong>
+
+<strong>第一层：总览仪表盘</strong>
+<ul><li>NPS 总分（-100 ~ +100），大数字展示</li>
+<li>推荐者/被动者/贬损者占比环形图</li>
+<li>与行业基准对比（如有）</li>
+<li>本月 vs 上月趋势折线图</li>
+</ul>
+<strong>第二层：驱动因素分析</strong>
+<ul><li>各驱动维度的平均分雷达图</li>
+<li>贬损者集中在哪几个维度（红色高亮）</li>
+<li>推荐者最满意的维度（绿色高亮）</li>
+<li>改进优先级矩阵（重要性 × 满意度四象限图）</li>
+</ul>
+<strong>第三层：客户明细</strong>
+<ul><li>每条问卷的原始回答</li>
+<li>客户标签筛选（按渠道/频次/客单价）</li>
+<li>可导出 Excel 做进一步分析</li>
+</ul>
+<strong>实现方式：</strong>
+<ul><li><strong>基础版：</strong> 飞书多维表格（自带仪表盘视图，零成本）</li>
+<li><strong>进阶版：</strong> 飞书多维表格 + 定制仪表盘视图</li>
+<li><strong>高级版：</strong> 独立 HTML 在线看板（可嵌入客户自己的管理系统）</li>
+</ul>
+<hr>
+
+<h3>1.3 客户分群机制</h3>
+
+<strong>分群标准（基于经典 NPS 方法论）：</strong>
+
+<table><thead><tr><th>分群</th><th>NPS 评分</th><th>定义</th><th>标记方式</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>🟢 推荐者 (Promoter)</th><th>9-10</th><th>忠诚的品牌拥护者，会主动推荐</th><th>绿色标签</th></tr></thead>
+<tr><td>🟡 被动者 (Passive)</td><td>7-8</td><td>满意但不热情，容易被竞品吸引</td><td>黄色标签</td></tr>
+<tr><td>🔴 贬损者 (Detractor)</td><td>0-6</td><td>不满意的客户，可能传播负面口碑</td><td>红色标签</td></tr>
+</table>
+<strong>自动化分群流程：</strong>
+
+<pre><code>客户提交问卷
+<p>↓</p>
+<p>系统自动读取 NPS 核心题分数</p>
+<p>↓</p>
+<p>9-10 → 标记为「推荐者」→ 触发裂变激励任务</p>
+<p>7-8  → 标记为「被动者」→ 触发体验提升任务</p>
+<p>0-6  → 标记为「贬损者」→ 触发预警回访任务</p>
+<p>↓</p>
+<p>同步到客户明细表 + 看板统计</p>
+</code></pre>
+
+<strong>分群后的推荐行动：</strong>
+
+<table><thead><tr><th>分群</th><th>推荐行动</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>推荐者</th><th>发送感谢信 + 专属推荐奖励（如"推荐朋友各得 XX 元"）+ 邀请写好评/UGC</th></tr></thead>
+<tr><td>被动者</td><td>识别扣分维度 → 针对性改善（如"等位太久"则优化预约机制）</td></tr>
+<tr><td>贬损者</td><td><strong>24小时内</strong>专人回访 → 了解具体问题 → 制定挽回方案 → 闭环跟踪</td></tr>
+</table>
+<hr>
+
+<h3>1.4 改进行动清单</h3>
+
+<strong>目标：</strong> 不只给数据，还要告诉客户"接下来该做什么"。
+
+<strong>生成机制：模板化 + 数据驱动</strong>
+
+<strong>第一部分：自动生成（基于数据）</strong>
+<ul><li>系统根据贬损者集中维度，自动生成 Top 3 改进方向</li>
+<li>每个方向附带：问题描述、影响客户数、建议行动</li>
+</ul>
+<strong>示例输出：</strong>
+
+<pre><code>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+<p>📋 NPS GO 改进行动清单（2026年6月）</p>
+<p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
+
+<p>🔴 优先级 1：上菜速度</p>
+<p>问题：38% 的贬损者提到"等待时间过长"</p>
+<p>影响：本月 12 位贬损者中有 5 位因此打低分</p>
+<p>行动：</p>
+<p>□ 优化备餐流程，高峰期预切配</p>
+<p>□ 增加等位时的小食/饮品供应</p>
+<p>□ 设置"预计等待时间"告知机制</p>
+<p>预期：减少 30% 的等待相关投诉</p>
+
+<p>🟡 优先级 2：性价比感知</p>
+<p>问题：25% 的被动者认为"价格偏高"</p>
+<p>行动：</p>
+<p>□ 推出午市套餐/工作日特惠</p>
+<p>□ 增加菜品份量展示（如"2-3人份"标注）</p>
+<p>□ 收集"觉得值"的客户反馈，强化价值传达</p>
+
+<p>🟢 优先级 3：服务态度</p>
+<p>问题：15% 的贬损者提到服务冷淡</p>
+<p>行动：</p>
+<p>□ 制定服务 SOP（迎客/点餐/送客话术）</p>
+<p>□ 每月评选"服务之星"激励</p>
+<p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
+</code></pre>
+
+<strong>第二部分：行业最佳实践库（模板化）</strong>
+<ul><li>每个行业配套 10-15 条常见改进措施</li>
+<li>客户可从库中勾选，生成自己的行动清单</li>
+<li>提供执行难度和预期效果评估</li>
+</ul>
+<hr>
+
+<h3>1.5 追踪复测机制</h3>
+
+<strong>目标：</strong> 让客户看到改进是否有效，形成"测量→改进→再测量"的闭环。
+
+<strong>复测节奏建议：</strong>
+
+<table><thead><tr><th>阶段</th><th>时间</th><th>动作</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>基线测量</th><th>第 1 周</th><th>发放首次 NPS 问卷，建立基线数据</th></tr></thead>
+<tr><td>改进执行</td><td>第 2-3 周</td><td>执行改进行动清单</td></tr>
+<tr><td>首次复测</td><td>第 4 周</td><td>发放第二次问卷，对比基线</td></tr>
+<tr><td>常规复测</td><td>每月/每季度</td><td>持续监测 NPS 变化趋势</td></tr>
+</table>
+<strong>追踪看板功能：</strong>
+<ul><li>NPS 分数趋势线（基线 → 复测 1 → 复测 2 → ...）</li>
+<li>各维度分数变化对比</li>
+<li>贬损者转化率（贬损者→被动者→推荐者的转化路径）</li>
+<li>改进行动完成度追踪（checklist 状态）</li>
+</ul>
+<strong>交付物：</strong>
+<ul><li>复测问卷模板（与首次问卷保持核心题一致，驱动因素可微调）</li>
+<li>趋势对比报告模板</li>
+<li>复测提醒（通过飞书/微信提醒客户该复测了）</li>
+</ul>
+<hr>
+
+<h2>2. 服务流程</h2>
+
+<h3>2.1 完整客户旅程</h3>
+
+<pre><code>┌─────────────────────────────────────────────────────────────────┐
+<p>│                        NPS GO 客户旅程                          │</p>
+<p>├─────────────────────────────────────────────────────────────────┤</p>
+<p>│                                                                 │</p>
+<p>│  【认知阶段】                                                    │</p>
+<p>│  ┌──────────┐   ┌──────────┐   ┌──────────┐                    │</p>
+<p>│  │ 小红书内容 │   │ 行业社群  │   │ 老客户推荐 │                    │</p>
+<p>│  │ (案例分享) │   │ (精准触达) │   │ (口碑传播) │                    │</p>
+<p>│  └─────┬────┘   └─────┬────┘   └─────┬────┘                    │</p>
+<p>│        └──────────┬───┴───────────┘                            │</p>
+<p>│                   ▼                                              │</p>
+<p>│  【了解阶段】                                                    │</p>
+<p>│  ┌──────────────────────────────┐                               │</p>
+<p>│  │ 官网/落地页                   │                               │</p>
+<p>│  │ · NPS 是什么（30秒科普）      │                               │</p>
+<p>│  │ · NPS GO 能帮你做什么         │                               │</p>
+<p>│  │ · 真实案例（before/after）    │                               │</p>
+<p>│  │ · 免费 NPS 自测工具（引流）    │                               │</p>
+<p>│  └──────────────┬───────────────┘                               │</p>
+<p>│                 ▼                                                │</p>
+<p>│  【决策阶段】                                                    │</p>
+<p>│  ┌──────────────────────────────┐                               │</p>
+<p>│  │ 15 分钟免费咨询               │                               │</p>
+<p>│  │ · 了解客户业务和痛点          │                               │</p>
+<p>│  │ · 推荐合适的套餐              │                               │</p>
+<p>│  │ · 展示同行业案例              │                               │</p>
+<p>│  └──────────────┬───────────────┘                               │</p>
+<p>│                 ▼                                                │</p>
+<p>│  【签约/付费】                                                   │</p>
+<p>│  ┌──────────────────────────────┐                               │</p>
+<p>│  │ · 线上签约（电子合同）        │                               │</p>
+<p>│  │ · 支付（微信/支付宝/银行转账）│                               │</p>
+<p>│  │ · 确认交付周期和对接人        │                               │</p>
+<p>│  └──────────────┬───────────────┘                               │</p>
+<p>│                 ▼                                                │</p>
+<p>│  【交付阶段】（见下方详细流程）                                    │</p>
+<p>│                                                                 │</p>
+<p>│  【运营阶段】                                                    │</p>
+<p>│  ┌──────────────────────────────┐                               │</p>
+<p>│  │ · 月度复测 + 报告             │                               │</p>
+<p>│  │ · 改进效果追踪                │                               │</p>
+<p>│  │ · 季度回顾会议                │                               │</p>
+<p>│  │ · 年度 NPS 健康度报告         │                               │</p>
+<p>│  └──────────────────────────────┘                               │</p>
+<p>│                                                                 │</p>
+<p>└─────────────────────────────────────────────────────────────────┘</p>
+</code></pre>
+
+<h3>2.2 交付流程（签约后）</h3>
+
+<strong>总周期：7-14 个工作日</strong>
+
+<table><thead><tr><th>阶段</th><th>时间</th><th>交付物</th><th>客户配合事项</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>Day 1-2: 需求对齐</strong></th><th>2 天</th><th>需求对齐表</th><th>填写业务信息表（门店数量、客群画像、现有触达渠道等）</th></tr></thead>
+<tr><td><strong>Day 3-5: 问卷搭建</strong></td><td>3 天</td><td>定制化 NPS 问卷</td><td>审核问卷内容，确认发放渠道</td></tr>
+<tr><td><strong>Day 5-7: 工具部署</strong></td><td>2 天</td><td>飞书多维表格看板 + 操作指南</td><td>提供飞书账号，完成权限配置</td></tr>
+<tr><td><strong>Day 7-10: 试发放</strong></td><td>3 天</td><td>首批 20-50 份问卷 + 测试报告</td><td>配合发放，反馈体验问题</td></tr>
+<tr><td><strong>Day 10-14: 正式上线</strong></td><td>4 天</td><td>正式问卷 + 看板 + 改进行动清单 + 操作培训</td><td>参与 30 分钟线上培训</td></tr>
+</table>
+<h3>2.3 后续服务</h3>
+
+<table><thead><tr><th>服务项</th><th>基础版</th><th>标准版</th><th>尊享版</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>问卷更新（按需调整题目）</th><th>❌</th><th>每季度 1 次</th><th>不限</th></tr></thead>
+<tr><td>数据看板维护</td><td>自助</td><td>协助</td><td>全托管</td></tr>
+<tr><td>月度复测提醒</td><td>❌</td><td>✅</td><td>✅</td></tr>
+<tr><td>改进行动清单</td><td>首次 1 份</td><td>每月更新</td><td>每月更新 + 定制</td></tr>
+<tr><td>季度回顾会议</td><td>❌</td><td>30 分钟线上</td><td>60 分钟线上</td></tr>
+<tr><td>行业对标数据</td><td>❌</td><td>✅</td><td>✅</td></tr>
+<tr><td>专属顾问对接</td><td>❌</td><td>❌</td><td>✅（微信群）</td></tr>
+</table>
+<hr>
+
+<h2>3. 工具选型</h2>
+
+<h3>3.1 整体工具架构</h3>
+
+<pre><code>┌─────────────────────────────────────────────────────────┐
+<p>│                    NPS GO 工具架构                        │</p>
+<p>├──────────┬──────────────┬───────────────┬───────────────┤</p>
+<p>│  问卷层   │   数据层      │   报告层       │   协作层      │</p>
+<p>│          │              │               │              │</p>
+<p>│ 飞书表单  │ 飞书多维表格  │ 飞书文档/      │ 飞书          │</p>
+<p>│ (首选)    │ (首选)       │ HTML 看板      │ (内部协作)    │</p>
+<p>│          │              │               │              │</p>
+<p>│ 问卷星    │ Excel        │ PDF           │ 企业微信      │</p>
+<p>│ (备选)    │ (备选)       │ (备选)        │ (客户沟通)    │</p>
+<p>└──────────┴──────────────┴───────────────┴───────────────┘</p>
+</code></pre>
+
+<h3>3.2 各组件工具选型</h3>
+
+<h4>问卷工具</h4>
+
+<table><thead><tr><th>工具</th><th>优势</th><th>劣势</th><th>推荐场景</th><th>成本</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>飞书表单</strong> ⭐首选</th><th>与多维表格无缝打通；数据自动入库；零代码</th><th>问卷逻辑跳转较弱</th><th>飞书生态内的客户</th><th>免费</th></tr></thead>
+<tr><td><strong>问卷星</strong></td><td>功能成熟；逻辑跳转强大；支持微信发放</td><td>数据需要手动导出/对接</td><td>需要复杂逻辑或微信发放</td><td>免费版可用，专业版 ¥300/年</td></tr>
+<tr><td><strong>腾讯问卷</strong></td><td>微信生态友好；免费额度大</td><td>分析功能较弱</td><td>微信私域为主的客户</td><td>免费</td></tr>
+<tr><td><strong>金数据</strong></td><td>设计感好；API 完善</td><td>免费版限制多</td><td>对问卷颜值有要求的客户</td><td>基础版 ¥199/年</td></tr>
+</table>
+<strong>推荐策略：</strong> 默认使用飞书表单（成本为零，数据自动流转），对需要微信发放的客户提供问卷星模板。
+
+<h4>数据分析工具</h4>
+
+<table><thead><tr><th>工具</th><th>优势</th><th>劣势</th><th>推荐场景</th><th>成本</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>飞书多维表格</strong> ⭐首选</th><th>仪表盘视图内置；自动汇总公式；协作方便</th><th>复杂图表有限</th><th>所有客户</th><th>免费</th></tr></thead>
+<tr><td><strong>Excel/Google Sheets</strong></td><td>灵活度最高；客户熟悉</td><td>无实时看板；协作不便</td><td>客户偏好 Excel 的场景</td><td>免费</td></tr>
+<tr><td><strong>FineBI</strong></td><td>专业 BI；可视化强大</td><td>学习成本高；价格贵</td><td>数据量大的高级客户</td><td>免费社区版</td></tr>
+</table>
+<strong>推荐策略：</strong> 飞书多维表格作为默认方案。预置 NPS 计算公式、分群自动标记、仪表盘视图模板，客户只需录入数据即可看到看板。
+
+<h4>报告交付工具</h4>
+
+<table><thead><tr><th>工具</th><th>优势</th><th>劣势</th><th>推荐场景</th><th>成本</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>飞书文档</strong> ⭐首选</th><th>在线协作；可嵌入多维表格图表</th><th>外部分享需设置权限</th><th>日常报告</th><th>免费</th></tr></thead>
+<tr><td><strong>HTML 在线看板</strong></td><td>交互性强；可定制品牌视觉</td><td>需要开发和托管</td><td>高级版客户</td><td>开发成本</td></tr>
+<tr><td><strong>PDF 报告</strong></td><td>正式感强；易于存档和分享</td><td>静态；无法交互</td><td>月度/季度正式报告</td><td>生成工具免费</td></tr>
+</table>
+<strong>推荐策略：</strong> 日常用飞书文档 + 多维表格看板（实时数据），月度/季度输出 PDF 正式报告。
+
+<h4>客户沟通工具</h4>
+
+<table><thead><tr><th>工具</th><th>推荐场景</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>企业微信</strong> ⭐</th><th>与客户的日常沟通（群聊、文件传输）</th></tr></thead>
+<tr><td><strong>飞书</strong></td><td>内部团队协作</td></tr>
+<tr><td><strong>微信</strong></td><td>小微客户直接对接</td></tr>
+</table>
+<h3>3.3 推荐工具组合方案</h3>
+
+<strong>标准方案（零成本）：</strong>
+
+<pre><code>飞书表单（问卷） → 飞书多维表格（数据+看板） → 飞书文档（报告）
+</code></pre>
+
+<ul><li>问卷数据自动流入多维表格</li>
+<li>多维表格内置仪表盘视图做可视化</li>
+<li>飞书文档输出月度报告</li>
+<li><strong>总成本：¥0</strong></li>
+</ul>
+<strong>进阶方案（低成本）：</strong>
+
+<pre><code>问卷星（问卷） → 飞书多维表格（数据+看板） → HTML 看板（在线报告）
+</code></pre>
+
+<ul><li>问卷星处理复杂问卷逻辑 + 微信发放</li>
+<li>数据通过 API 或手动导入多维表格</li>
+<li>HTML 看板提供更好的可视化体验</li>
+<li><strong>总成本：约 ¥300-1000/年</strong></li>
+</ul>
+<hr>
+
+<h2>4. 定价建议</h2>
+
+<h3>4.1 定价逻辑</h3>
+
+<strong>定价考量因素：</strong>
+<ul><li>目标客户是小微商家，价格敏感度高</li>
+<li>核心价值在于"方法论 + 模板 + 落地指导"，而非纯软件</li>
+<li>需要让客户觉得"比自己摸索划算"</li>
+<li>首发阶段以获取客户和口碑为主，不宜定价过高</li>
+</ul>
+<strong>市场参考：</strong>
+<ul><li>问卷星专业版：¥300/年</li>
+<li>普通 SaaS CRM：¥200-500/月</li>
+<li>咨询公司 NPS 项目：¥50,000-200,000/项目</li>
+<li>本产品的定位：填补"免费工具"和"大型咨询项目"之间的空白</li>
+</ul>
+<h3>4.2 定价方案</h3>
+
+<h4>🥉 入门版 — ¥999/次（一次性）</h4>
+
+<blockquote><p><strong>一句话定位：</strong> "给我一套能用的 NPS 系统"</p></blockquote>
+
+<table><thead><tr><th>包含内容</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>NPS 问卷模板</th><th>1 个行业模板，可直接使用</th></tr></thead>
+<tr><td>飞书多维表格看板</td><td>预置公式 + 仪表盘视图</td></tr>
+<tr><td>客户分群规则</td><td>自动分群逻辑 + 操作说明</td></tr>
+<tr><td>改进行动清单模板</td><td>1 份通用版清单</td></tr>
+<tr><td>操作指南</td><td>图文版使用手册</td></tr>
+<tr><td>交付周期</td><td>5 个工作日</td></tr>
+</table>
+<strong>适合谁：</strong> 预算有限、想快速试水 NPS 的个体店主
+
+<hr>
+
+<h4>🥈 标准版 — ¥2,999/次（一次性）或 ¥399/月（订阅）</h4>
+
+<blockquote><p><strong>一句话定位：</strong> "有人帮我把 NPS 跑起来"</p></blockquote>
+
+<table><thead><tr><th>包含内容</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>NPS 问卷定制</th><th>基于模板定制化调整，适配客户业务</th></tr></thead>
+<tr><td>飞书多维表格看板</td><td>定制化仪表盘</td></tr>
+<tr><td>客户分群自动化</td><td>问卷提交即自动分群 + 标记</td></tr>
+<tr><td>改进行动清单</td><td>基于首次数据生成的定制化清单</td></tr>
+<tr><td>1 次复测支持</td><td>第二个月复测 + 趋势对比报告</td></tr>
+<tr><td>30 分钟培训</td><td>线上操作培训</td></tr>
+<tr><td>30 天答疑</td><td>微信群答疑</td></tr>
+<tr><td>交付周期</td><td>10 个工作日</td></tr>
+</table>
+<strong>适合谁：</strong> 有一定规模（月客流 200+）、想系统化管理客户满意度的主理人
+
+<strong>订阅版额外权益：</strong>
+<ul><li>每月自动复测提醒</li>
+<li>每月改进行动清单更新</li>
+<li>每季度 30 分钟回顾会议</li>
+</ul>
+<hr>
+
+<h4>🥇 尊享版 — ¥6,999/次（一次性）或 ¥799/月（订阅）</h4>
+
+<blockquote><p><strong>一句话定位：</strong> "像大品牌一样管理客户体验"</p></blockquote>
+
+<table><thead><tr><th>包含内容</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>NPS 全案设计</th><th>问卷定制 + 发放策略 + 触达渠道规划</th></tr></thead>
+<tr><td>高级看板</td><td>多维度交叉分析 + 行业对标数据</td></tr>
+<tr><td>客户分群 + 自动化</td><td>分群后自动触发行动（如贬损者自动创建回访任务）</td></tr>
+<tr><td>改进行动清单</td><td>月度定制化清单 + 执行跟踪</td></tr>
+<tr><td>季度复测</td><td>每季度复测 + 趋势分析报告</td></tr>
+<tr><td>60 分钟回顾会议</td><td>每季度线上回顾</td></tr>
+<tr><td>专属顾问</td><td>微信群 1v1 对接</td></tr>
+<tr><td>年度 NPS 健康度报告</td><td>年终总结 + 次年建议</td></tr>
+<tr><td>交付周期</td><td>14 个工作日</td></tr>
+</table>
+<strong>适合谁：</strong> 多门店/连锁品牌、注重长期客户关系管理、预算充裕的商家
+
+<strong>订阅版额外权益：</strong>
+<ul><li>不限次问卷调整</li>
+<li>全年 4 次复测 + 报告</li>
+<li>行业竞品 NPS 对标（如有数据）</li>
+</ul>
+<h3>4.3 定价方案对比</h3>
+
+<table><thead><tr><th>功能</th><th>入门版 ¥999</th><th>标准版 ¥2,999</th><th>尊享版 ¥6,999</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>NPS 问卷模板</th><th>✅ 标准版</th><th>✅ 定制版</th><th>✅ 全案设计</th></tr></thead>
+<tr><td>数据看板</td><td>✅ 基础</td><td>✅ 定制</td><td>✅ 高级</td></tr>
+<tr><td>客户分群</td><td>✅ 手动</td><td>✅ 自动</td><td>✅ 自动 + 触发行动</td></tr>
+<tr><td>改进行动清单</td><td>✅ 通用模板</td><td>✅ 数据驱动</td><td>✅ 月度定制</td></tr>
+<tr><td>复测支持</td><td>❌</td><td>✅ 1 次</td><td>✅ 每季度</td></tr>
+<tr><td>培训</td><td>❌</td><td>✅ 30 分钟</td><td>✅ 60 分钟</td></tr>
+<tr><td>答疑支持</td><td>❌</td><td>✅ 30 天</td><td>✅ 全年</td></tr>
+<tr><td>专属顾问</td><td>❌</td><td>❌</td><td>✅</td></tr>
+<tr><td>行业对标</td><td>❌</td><td>❌</td><td>✅</td></tr>
+<tr><td>年度报告</td><td>❌</td><td>❌</td><td>✅</td></tr>
+</table>
+<h3>4.4 首发促销建议</h3>
+
+<ul><li><strong>早鸟价：</strong> 首批 20 个客户享 7 折（入门 ¥699 / 标准 ¥2,099 / 尊享 ¥4,899）</li>
+<li><strong>推荐奖励：</strong> 老客户推荐新客户，双方各减 ¥200</li>
+<li><strong>免费体验：</strong> 提供免费 NPS 自测工具（网页版，输入 10 个客户评分即可算出 NPS），作为引流手段</li>
+</ul>
+<hr>
+
+<h2>5. 附录</h2>
+
+<h3>5.1 NPS 计算公式</h3>
+
+<pre><code>NPS = 推荐者占比(%) - 贬损者占比(%)
+
+<p>示例：</p>
+<ul><li>100 个客户参与评分</li>
+<li>60 人打 9-10 分（推荐者 = 60%）</li>
+<li>15 人打 0-6 分（贬损者 = 15%）</li>
+<li>NPS = 60% - 15% = 45</li>
+</ul></code></pre>
+
+<strong>NPS 分数解读：</strong>
+
+<table><thead><tr><th>分数范围</th><th>评价</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>70+</th><th>世界级</th><th>极少数企业能达到</th></tr></thead>
+<tr><td>50-69</td><td>优秀</td><td>客户忠诚度很高</td></tr>
+<tr><td>30-49</td><td>良好</td><td>有改进空间</td></tr>
+<tr><td>0-29</td><td>一般</td><td>需要关注核心问题</td></tr>
+<tr><td>< 0</td><td>警告</td><td>贬损者多于推荐者，急需改进</td></tr>
+</table>
+<h3>5.2 首发行业选择理由</h3>
+
+<table><thead><tr><th>行业</th><th>选择理由</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>餐饮</th><th>高频消费、即时反馈、口碑传播强、数据采集方便（结账时/外卖后）</th></tr></thead>
+<tr><td>美业</td><td>高客单价、复购率关键、服务体验差异化大、私域运营成熟</td></tr>
+<tr><td>潮牌</td><td>主理人重视品牌调性、社群驱动、圈层传播、年轻用户配合度高</td></tr>
+<tr><td>小电商</td><td>私域流量运营核心场景、复购是命脉、数据天然在线化</td></tr>
+</table>
+<h3>5.3 后续扩展方向</h3>
+
+<ul><li><strong>更多行业模板：</strong> 教育培训、健身瑜伽、宠物服务、家居装修等</li>
+<li><strong>NPS GO Lite（自助版）：</strong> 纯线上自助工具，降低交付成本，定价 ¥299/次</li>
+<li><strong>NPS GO Pro（团队版）：</strong> 面向 10-50 人团队，增加多门店对比、员工绩效关联等功能</li>
+<li><strong>API 集成：</strong> 与美团、大众点评、有赞等平台数据打通</li>
+<li><strong>AI 分析助手：</strong> 用 AI 自动分析开放题文本，提取关键词和情感倾向</li>
+</ul>
+<hr>
+
+<blockquote><p><strong>文档维护：</strong> 本文档随产品迭代持续更新。  </p></blockquote>
+<blockquote><p><strong>下一步：</strong> 基于此方案制作 MVP，选择 2-3 个种子客户进行验证。</p></blockquote>
+
+</div>
+</body>
+</html>

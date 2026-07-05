@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPS GO - 小红书封面模板</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: #f1f5f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    font-family: -apple-system, 'SF Pro Display', 'PingFang SC', 'Microsoft YaHei', sans-serif;
+    gap: 40px;
+  }
+
+  h1 {
+    font-size: 14px;
+    color: #94a3b8;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+
+  /* ============ COVER CARD ============ */
+  .cover {
+    width: 540px;          /* 1080/2 for screen preview */
+    height: 720px;         /* 1440/2 for screen preview */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* --- Template A: 经典蓝 --- */
+  .cover--classic {
+    background: linear-gradient(135deg, #2563EB 0%, #1D4ED8 60%, #1E40AF 100%);
+    color: #fff;
+  }
+
+  /* --- Template B: 浅色专业 --- */
+  .cover--light {
+    background: #FFFFFF;
+    color: #1E293B;
+  }
+
+  .cover__header {
+    padding: 32px 36px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .cover__logo-icon {
+    width: 28px;
+    height: 28px;
+    border-radius: 7px;
+    background: rgba(255,255,255,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cover--light .cover__logo-icon {
+    background: #2563EB;
+  }
+
+  .cover__logo-icon svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .cover__brand {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    opacity: 0.9;
+  }
+
+  .cover__body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 36px;
+  }
+
+  .cover__tag {
+    display: inline-block;
+    width: fit-content;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 4px;
+    margin-bottom: 16px;
+  }
+  .cover--classic .cover__tag {
+    background: rgba(255,255,255,0.15);
+    color: rgba(255,255,255,0.85);
+  }
+  .cover--light .cover__tag {
+    background: #EFF6FF;
+    color: #2563EB;
+  }
+
+  .cover__title {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.25;
+    letter-spacing: -0.5px;
+    margin-bottom: 12px;
+  }
+
+  .cover__subtitle {
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.6;
+    opacity: 0.75;
+  }
+
+  .cover__footer {
+    padding: 24px 36px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 11px;
+    opacity: 0.5;
+  }
+
+  .cover__pulse-line {
+    padding: 0 36px 20px;
+    opacity: 0.25;
+  }
+  .cover__pulse-line svg {
+    width: 100%;
+    height: 24px;
+  }
+  .cover--light .cover__pulse-line { opacity: 0.1; }
+
+  /* ============ Decorative elements ============ */
+  .cover__deco {
+    position: absolute;
+    border-radius: 50%;
+    pointer-events: none;
+  }
+  .cover--classic .cover__deco--1 {
+    width: 200px; height: 200px;
+    top: -60px; right: -40px;
+    background: rgba(255,255,255,0.05);
+  }
+  .cover--classic .cover__deco--2 {
+    width: 120px; height: 120px;
+    bottom: 80px; right: 30px;
+    background: rgba(255,255,255,0.04);
+  }
+
+  /* ============ Controls ============ */
+  .controls {
+    display: flex;
+    gap: 12px;
+  }
+  .controls button {
+    padding: 8px 20px;
+    border: 1px solid #e2e8f0;
+    background: #fff;
+    border-radius: 6px;
+    font-size: 13px;
+    cursor: pointer;
+    color: #475569;
+    transition: all 0.2s;
+  }
+  .controls button:hover {
+    border-color: #2563EB;
+    color: #2563EB;
+  }
+
+  .note {
+    font-size: 12px;
+    color: #94a3b8;
+    text-align: center;
+    max-width: 540px;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<h1>NPS GO · 小红书封面模板</h1>
+
+<!-- ============ 模板 A：经典蓝底 ============ -->
+<div class="cover cover--classic" id="coverA">
+  <div class="cover__deco cover__deco--1"></div>
+  <div class="cover__deco cover__deco--2"></div>
+
+  <div class="cover__header">
+    <div class="cover__logo-icon">
+      <svg viewBox="0 0 18 18" fill="none">
+        <polyline points="1,9 4,9 6,9 7,4 9,14 11,5 13,12 14,9 17,9"
+          stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="cover__brand">NPS GO</span>
+  </div>
+
+  <div class="cover__body">
+    <span class="cover__tag">干货分享</span>
+    <div class="cover__title">3 步提升<br>你的 NPS 分数</div>
+    <div class="cover__subtitle">从收集反馈到落地行动的完整指南<br>适合初创团队快速上手</div>
+  </div>
+
+  <div class="cover__pulse-line">
+    <svg viewBox="0 0 468 24" fill="none">
+      <polyline points="0,12 60,12 80,12 100,4 120,20 140,6 160,18 180,12 240,12 260,12 275,5 290,19 305,7 320,17 335,12 400,12 420,12 435,6 450,18 468,12"
+        stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="cover__footer">
+    <span>npsgo.com</span>
+    <span>NPS Pulse © 2026</span>
+  </div>
+</div>
+
+<!-- ============ 模板 B：浅色专业 ============ -->
+<div class="cover cover--light" id="coverB">
+  <div class="cover__header">
+    <div class="cover__logo-icon">
+      <svg viewBox="0 0 18 18" fill="none">
+        <polyline points="1,9 4,9 6,9 7,4 9,14 11,5 13,12 14,9 17,9"
+          stroke="#fff" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+    <span class="cover__brand">NPS GO</span>
+  </div>
+
+  <div class="cover__body">
+    <span class="cover__tag">实操模板</span>
+    <div class="cover__title" style="color:#1E293B;">NPS 问卷<br>怎么设计？</div>
+    <div class="cover__subtitle" style="color:#64748B;">5 个高回收率问卷模板<br>直接复制就能用</div>
+  </div>
+
+  <div class="cover__pulse-line">
+    <svg viewBox="0 0 468 24" fill="none">
+      <polyline points="0,12 60,12 80,12 100,4 120,20 140,6 160,18 180,12 240,12 260,12 275,5 290,19 305,7 320,17 335,12 400,12 420,12 435,6 450,18 468,12"
+        stroke="#2563EB" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+  <div class="cover__footer" style="color:#94a3b8;">
+    <span>npsgo.com</span>
+    <span>NPS Pulse © 2026</span>
+  </div>
+</div>
+
+<p class="note">
+  💡 提示：截图保存即可使用。尺寸为 1080×1440 的 50% 预览。<br>
+  在浏览器中打开此文件，右键截图或使用开发者工具导出高清图。
+</p>
+
+</body>
+</html>

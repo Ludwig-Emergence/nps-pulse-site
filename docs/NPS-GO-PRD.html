@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NPS GO 产品分析文档 — NPS Pulse</title>
+<style>
+  :root { --primary: #2563EB; }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; color: #1e293b; line-height: 1.8; background: #f8fafc; }
+  .container { max-width: 880px; margin: 0 auto; padding: 40px 24px; }
+  .back { display: inline-block; margin-bottom: 20px; color: var(--primary); text-decoration: none; font-size: 0.9rem; }
+  .back:hover { text-decoration: underline; }
+  h1 { font-size: 1.8rem; color: var(--primary); margin: 32px 0 12px; }
+  h2 { font-size: 1.4rem; color: var(--primary); margin: 32px 0 10px; padding-bottom: 6px; border-bottom: 2px solid #e2e8f0; }
+  h3 { font-size: 1.15rem; color: #334155; margin: 24px 0 8px; }
+  h4 { font-size: 1rem; color: #475569; margin: 16px 0 6px; }
+  p { margin: 6px 0; }
+  ul, ol { padding-left: 24px; margin: 8px 0; }
+  li { margin: 4px 0; }
+  table { width: 100%; border-collapse: collapse; margin: 10px 0 18px; font-size: 0.88rem; }
+  th, td { border: 1px solid #e2e8f0; padding: 8px 10px; text-align: left; }
+  th { background: #f1f5f9; font-weight: 600; }
+  tr:hover { background: #f8fafc; }
+  code { background: #f1f5f9; padding: 2px 6px; border-radius: 4px; font-size: 0.85em; }
+  pre { background: #1e293b; color: #e2e8f0; padding: 14px; border-radius: 8px; overflow-x: auto; margin: 10px 0; font-size: 0.85rem; }
+  pre code { background: none; padding: 0; }
+  blockquote { border-left: 4px solid var(--primary); padding: 10px 16px; margin: 10px 0; background: #eff6ff; border-radius: 0 8px 8px 0; }
+  hr { border: none; height: 2px; background: #e2e8f0; margin: 28px 0; }
+  strong { color: #0f172a; }
+</style>
+</head>
+<body>
+<div class="container">
+<a class="back" href="index.html">← 返回文档中心</a>
+<h1>NPS GO 产品分析文档</h1>
+
+<blockquote><p><strong>产品名称：</strong> NPS GO  </p></blockquote>
+<blockquote><p><strong>产品定位：</strong> 面向 0→1 阶段个人品牌主理人和微型商家的低成本基础满意度管理工具  </p></blockquote>
+<blockquote><p><strong>所属公司：</strong> NPS Pulse  </p></blockquote>
+<blockquote><p><strong>文档版本：</strong> v1.0  </p></blockquote>
+<blockquote><p><strong>编写日期：</strong> 2026-07-05  </p></blockquote>
+<blockquote><p><strong>文档状态：</strong> 待总经理审阅  </p></blockquote>
+
+<hr>
+
+<h2>目录</h2>
+
+<li><a href="#1-用户场景与痛点分析">用户场景与痛点分析</a></li>
+<li><a href="#2-产品功能定义">产品功能定义</a></li>
+<li><a href="#3-功能-prd产品需求文档">功能 PRD（产品需求文档）</a></li>
+<li><a href="#4-盈利模式">盈利模式</a></li>
+<li><a href="#5-mvp-定义">MVP 定义</a></li>
+
+<hr>
+
+<h2>1. 用户场景与痛点分析</h2>
+
+<h3>1.1 目标用户画像</h3>
+
+<p>NPS GO 的目标用户是处于业务 0→1 阶段的个体经营者，通常具有以下共同特征：</p>
+
+<ul><li>年营收 < 50 万元，团队 ≤ 3 人（多数为单人运营）</li>
+<li>依赖微信生态（朋友圈、小程序、社群）获客和交付</li>
+<li>没有专职客服/运营人员，所有客户关系由主理人亲自维护</li>
+<li>对"系统化管理"有认知但缺乏工具和方法论</li>
+</ul>
+<h4>角色 A：个人品牌主理人（知识付费/咨询型）</h4>
+
+<table><thead><tr><th>维度</th><th>描述</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>典型身份</strong></th><th>独立咨询师、个人IP博主、知识付费课程讲师</th></tr></thead>
+<tr><td><strong>代表案例</strong></td><td>做小红书心理咨询内容的独立咨询师，有200+付费学员</td></tr>
+<tr><td><strong>业务模式</strong></td><td>通过内容引流 → 社群运营 → 课程/1v1咨询变现</td></tr>
+<tr><td><strong>技术水平</strong></td><td>会用微信、小红书、飞书等工具，不会写代码</td></tr>
+<tr><td><strong>核心关切</strong></td><td>学员续费率、口碑转介绍、如何知道哪些学员满意哪些不满意</td></tr>
+<tr><td><strong>月营收</strong></td><td>1-5 万元</td></tr>
+<tr><td><strong>愿意付费</strong></td><td>500-3000 元/年（对"能直接帮我赚钱或省钱的工具"敏感）</td></tr>
+</table>
+<h4>角色 B：微型电商商家（实物/本地服务型）</h4>
+
+<table><thead><tr><th>维度</th><th>描述</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>典型身份</strong></th><th>微信小店/有赞/拼多多小型卖家、本地烘焙/花艺工作室主理人</th></tr></thead>
+<tr><td><strong>代表案例</strong></td><td>在微信私域卖手工烘焙产品的宝妈，月订单300+</td></tr>
+<tr><td><strong>业务模式</strong></td><td>私域引流 → 微信成交 → 复购驱动增长</td></tr>
+<tr><td><strong>技术水平</strong></td><td>熟练使用电商平台后台、微信，不会数据分析</td></tr>
+<tr><td><strong>核心关切</strong></td><td>差评来了才知道问题，无法提前预警；不知道哪些客户可能流失</td></tr>
+<tr><td><strong>月营收</strong></td><td>2-10 万元</td></tr>
+<tr><td><strong>愿意付费</strong></td><td>1000-5000 元/年（对"直接减少差评和退货"敏感）</td></tr>
+</table>
+<h4>角色 C：线下实体小老板（服务型门店）</h4>
+
+<table><thead><tr><th>维度</th><th>描述</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>典型身份</strong></th><th>美甲店、宠物店、小型健身房、社区咖啡馆老板</th></tr></thead>
+<tr><td><strong>代表案例</strong></td><td>开了2年的社区宠物店，有500+老客户微信</td></tr>
+<tr><td><strong>业务模式</strong></td><td>到店体验 → 加微信 → 老带新裂变</td></tr>
+<tr><td><strong>技术水平</strong></td><td>会用微信和大众点评后台，对"系统"有畏惧感</td></tr>
+<tr><td><strong>核心关切</strong></td><td>老客户为什么不来了？怎么让满意客户帮我推荐？</td></tr>
+<tr><td><strong>月营收</strong></td><td>3-15 万元</td></tr>
+<tr><td><strong>愿意付费</strong></td><td>500-3000 元/年（对"帮我留住老客户"敏感）</td></tr>
+</table>
+<h3>1.2 使用场景</h3>
+
+<h4>场景 A1：知识付费主理人 — 学员满意度黑箱</h4>
+
+<strong>背景：</strong> 张老师卖了一个 299 元的线上课程，有 150 个学员。课程结束后，她想知道学员满意度，但：
+<ul><li>群里发问卷 → 没人填（回收率 < 10%）</li>
+<li>私聊问 → 太耗时，而且学员不好意思说真话</li>
+<li>朋友圈发反馈截图 → 只有好评，幸存者偏差</li>
+</ul>
+<strong>使用 NPS GO：</strong>
+<li>通过 NPS GO 生成一个 NPS 调研链接/小程序卡片</li>
+<li>在课程社群里一键发送，学员 3 秒完成打分（0-10 分 + 可选留言）</li>
+<li>系统自动计算 NPS 分值，生成可视化报告</li>
+<li>张老师一眼看到：Promoter（9-10 分）占比 40%，Passive（7-8 分）占比 35%，Detractor（0-6 分）占比 25%</li>
+<li>对 Detractor 学员的留言逐条分析，发现"课程太理论缺实操"是核心不满</li>
+<li>下期课程增加实操环节，NPS 提升 15 分</li>
+
+<h4>场景 B1：微型电商 — 差评预警缺失</h4>
+
+<strong>背景：</strong> 李姐在微信私域卖手工蛋糕，月销 300 单。某天突然发现退款率飙升，但不知道原因：
+<ul><li>有赞后台只有退款数据，没有"满意度趋势"</li>
+<li>微信私聊问客户 → 客户已读不回</li>
+<li>发现问题时，已经在小红书看到差评帖子了</li>
+</ul>
+<strong>使用 NPS GO：</strong>
+<li>每月订单完成后，NPS GO 自动发送 NPS 调研（对接订单系统或手动导入订单列表）</li>
+<li>系统实时监控：如果某天 Detractor 比例突增 → 自动触发告警</li>
+<li>李姐第一时间看到：最近 3 天有 8 个 Detractor，留言集中反映"配送时蛋糕变形"</li>
+<li>立即更换包装方案，一周后 Detractor 比例回落</li>
+
+<h4>场景 C1：线下门店 — 老客户沉默流失</h4>
+
+<strong>背景：</strong> 王老板开了一家社区宠物店，微信上有 500 个老客户。近半年发现：
+<ul><li>月活客户从 200 降到 120</li>
+<li>大众点评评分 4.8，看起来没问题</li>
+<li>但不知道哪些老客户已经不来了，为什么不来</li>
+</ul>
+<strong>使用 NPS GO：</strong>
+<li>每季度通过 NPS GO 给老客户发送 NPS 调研（微信消息卡片形式）</li>
+<li>发现：Promoter 客户平均月消费 350 元，Detractor 客户已停止消费</li>
+<li>Detractor 留言中，"洗澡等待时间太长"是排名第一的不满</li>
+<li>王老板调整预约排期，减少等待时间</li>
+<li>对 Detractor 客户发送专属优惠券 → 其中 30% 回流消费</li>
+
+<h3>1.3 痛点优先级排序</h3>
+
+<table><thead><tr><th>优先级</th><th>痛点</th><th>影响角色</th><th>严重程度</th><th>NPS GO 能否解决</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>P0</strong></th><th>不知道客户真实满意度，决策靠猜</th><th>A, B, C</th><th>🔴 极高</th><th>✅ 核心解决</th></tr></thead>
+<tr><td><strong>P0</strong></td><td>满意度数据收集成本高（问卷没人填）</td><td>A, B, C</td><td>🔴 极高</td><td>✅ 核心解决</td></tr>
+<tr><td><strong>P1</strong></td><td>差评/不满发现滞后，错过挽回窗口</td><td>B, C</td><td>🟠 高</td><td>✅ 告警功能解决</td></tr>
+<tr><td><strong>P1</strong></td><td>不知道哪些客户可能流失</td><td>A, B, C</td><td>🟠 高</td><td>✅ 客户分层解决</td></tr>
+<tr><td><strong>P2</strong></td><td>无法系统化追踪满意度变化趋势</td><td>A, B</td><td>🟡 中</td><td>✅ 报告功能解决</td></tr>
+<tr><td><strong>P2</strong></td><td>满意客户无法被识别和激活转介绍</td><td>A, C</td><td>🟡 中</td><td>✅ Promoter 标记解决</td></tr>
+<tr><td><strong>P3</strong></td><td>不懂 NPS 方法论，不知从何开始</td><td>A, B, C</td><td>🟢 低</td><td>✅ 引导 + 模板解决</td></tr>
+</table>
+<hr>
+
+<h2>2. 产品功能定义</h2>
+
+<h3>2.1 核心功能清单（MVP 必须有）</h3>
+
+<table><thead><tr><th>功能编号</th><th>功能名称</th><th>解决痛点</th><th>功能概述</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>F1</th><th>NPS 调研创建</th><th>P0: 不知道真实满意度</th><th>3 步创建 NPS 问卷，支持自定义品牌信息和问题</th></tr></thead>
+<tr><td>F2</td><td>多渠道分发</td><td>P0: 数据收集成本高</td><td>生成链接/二维码/微信小程序卡片，一键分发</td></tr>
+<tr><td>F3</td><td>自动计分与分类</td><td>P0: 不知道真实满意度</td><td>自动计算 NPS，将客户分为 Promoter/Passive/Detractor</td></tr>
+<tr><td>F4</td><td>数据看板</td><td>P2: 无法追踪趋势</td><td>可视化 NPS 分值、趋势图、客户分类占比</td></tr>
+<tr><td>F5</td><td>客户分层标签</td><td>P1: 不知道谁可能流失</td><td>基于 NPS 打分自动给客户打标签（可导出）</td></tr>
+<tr><td>F6</td><td>Detractor 告警</td><td>P1: 差评发现滞后</td><td>收到低分时实时通知主理人（微信/短信）</td></tr>
+<tr><td>F7</td><td>留言分析</td><td>P0: 不知道真实满意度</td><td>收集并展示客户文字反馈，支持关键词提取</td></tr>
+</table>
+<h3>2.2 增强功能（后续迭代）</h3>
+
+<table><thead><tr><th>功能编号</th><th>功能名称</th><th>解决痛点</th><th>功能概述</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>F8</th><th>周期性自动调研</th><th>P1: 手动操作成本高</th><th>设置调研周期，系统自动发送（如每月/每季度）</th></tr></thead>
+<tr><td>F9</td><td>趋势对比分析</td><td>P2: 无法追踪变化</td><td>不同时间段 NPS 对比，自动识别改善/恶化趋势</td></tr>
+<tr><td>F10</td><td>Promoter 激活工具</td><td>P2: 无法激活转介绍</td><td>识别 Promoter 客户，自动发送转介绍邀请/好评引导</td></tr>
+<tr><td>F11</td><td>行业基准对比</td><td>P3: 不知从何开始</td><td>提供行业平均 NPS 数据，帮助用户判断自己的水平</td></tr>
+<tr><td>F12</td><td>多人协作</td><td>—</td><td>支持团队成员共同查看和管理 NPS 数据</td></tr>
+<tr><td>F13</td><td>API/集成</td><td>—</td><td>对接主流电商和 CRM 系统（有赞、微盟等）</td></tr>
+<tr><td>F14</td><td>AI 洞察报告</td><td>—</td><td>AI 自动生成满意度改善建议</td></tr>
+</table>
+<h3>2.3 功能与痛点映射关系</h3>
+
+<pre><code>痛点：不知道真实满意度
+<p>└── F1 调研创建 + F2 多渠道分发 + F3 自动计分 + F7 留言分析</p>
+
+<p>痛点：数据收集成本高</p>
+<p>└── F2 多渠道分发（降低填写门槛）+ F8 周期性自动调研（减少手动操作）</p>
+
+<p>痛点：差评发现滞后</p>
+<p>└── F6 Detractor 告警（实时通知）</p>
+
+<p>痛点：不知道谁可能流失</p>
+<p>└── F5 客户分层标签（自动分类）+ F6 告警（低分预警）</p>
+
+<p>痛点：无法追踪趋势</p>
+<p>└── F4 数据看板 + F9 趋势对比分析</p>
+
+<p>痛点：无法激活转介绍</p>
+<p>└── F10 Promoter 激活工具</p>
+
+<p>痛点：不知从何开始</p>
+<p>└── F11 行业基准 + 产品内引导 + 预设模板</p>
+</code></pre>
+
+<hr>
+
+<h2>3. 功能 PRD（产品需求文档）</h2>
+
+<h3>3.1 F1 — NPS 调研创建</h3>
+
+<h4>功能描述</h4>
+<p>用户通过 3 步流程快速创建一份 NPS 调研问卷，包含品牌信息、核心 NPS 问题和可选附加问题。</p>
+
+<h4>用户故事</h4>
+<ul><li><strong>As a</strong> 个人品牌主理人，<strong>I want</strong> 用最少的步骤创建一份专业的 NPS 问卷，<strong>so that</strong> 我不需要学习复杂工具就能开始收集客户反馈。</li>
+<li><strong>As a</strong> 微型电商商家，<strong>I want</strong> 在问卷中展示我的品牌 logo 和名称，<strong>so that</strong> 客户知道这是来自我的调研，提升信任感和回复率。</li>
+</ul>
+<h4>交互流程</h4>
+
+<strong>第一步：基本信息设置</strong>
+<li>用户点击"创建新调研"</li>
+<li>填写调研名称（如"2026年7月课程满意度"）</li>
+<li>上传品牌 logo（可选，支持 JPG/PNG，≤ 2MB）</li>
+<li>设置品牌主色（默认 #1677FF）</li>
+
+<strong>第二步：问卷内容配置</strong>
+<li>核心问题（必填，默认不可删除）：</li>
+<p>- "您在多大程度上愿意向朋友推荐 [品牌名]？"（0-10 分）</p>
+<li>附加问题（可选，最多 3 题）：</li>
+<p>- 预设模板选择（如"您最喜欢我们哪一点？""我们最需要改进什么？"）</p>
+<p>- 自定义问题（文本输入）</p>
+<li>感谢语配置：</li>
+<p>- 默认："感谢您的反馈！我们会持续改进。"</p>
+<p>- 可自定义</p>
+
+<strong>第三步：预览与发布</strong>
+<li>实时预览问卷效果（模拟客户端展示）</li>
+<li>确认后点击"发布"</li>
+<li>系统生成分发链接/二维码</li>
+
+<h4>数据字段/逻辑</h4>
+
+<table><thead><tr><th>字段</th><th>类型</th><th>必填</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>survey_id</th><th>UUID</th><th>自动</th><th>调研唯一标识</th></tr></thead>
+<tr><td>user_id</td><td>String</td><td>自动</td><td>创建者 ID</td></tr>
+<tr><td>survey_name</td><td>String</td><td>是</td><td>调研名称，≤ 50 字符</td></tr>
+<tr><td>brand_logo</td><td>URL</td><td>否</td><td>品牌 logo 图片地址</td></tr>
+<tr><td>brand_color</td><td>Hex</td><td>是</td><td>品牌主色，默认 #1677FF</td></tr>
+<tr><td>core_question</td><td>String</td><td>是</td><td>NPS 核心问题文本</td></tr>
+<tr><td>additional_questions</td><td>Array</td><td>否</td><td>附加问题列表，最多 3 个</td></tr>
+<tr><td>thank_you_message</td><td>String</td><td>是</td><td>感谢语</td></tr>
+<tr><td>status</td><td>Enum</td><td>自动</td><td>draft / active / closed</td></tr>
+<tr><td>created_at</td><td>DateTime</td><td>自动</td><td>创建时间</td></tr>
+<tr><td>distribution_url</td><td>String</td><td>自动</td><td>分发链接</td></tr>
+</table>
+<strong>业务逻辑：</strong>
+<ul><li>每个用户最多同时有 10 个 active 状态的调研</li>
+<li>调研创建后默认为 draft，分发后变为 active</li>
+<li>用户可手动关闭调研（变为 closed），关闭后不再接收新回复</li>
+</ul>
+<h4>验收标准</h4>
+<li>✅ 用户能在 3 步内完成调研创建，全程 ≤ 2 分钟</li>
+<li>✅ 预览效果与客户端实际展示一致</li>
+<li>✅ 支持 logo 上传和品牌色自定义</li>
+<li>✅ 附加问题支持预设模板和自定义输入</li>
+<li>✅ 发布后自动生成可用的分发链接</li>
+
+<hr>
+
+<h3>3.2 F2 — 多渠道分发</h3>
+
+<h4>功能描述</h4>
+<p>为已创建的 NPS 调研生成多种分发形式（链接、二维码、微信卡片），支持一键复制/下载/分享，降低客户填写门槛。</p>
+
+<h4>用户故事</h4>
+<ul><li><strong>As a</strong> 知识付费主理人，<strong>I want</strong> 在微信社群里一键发送调研卡片，<strong>so that</strong> 学员不需要跳转浏览器就能直接打分，提升回收率。</li>
+<li><strong>As a</strong> 线下门店老板，<strong>I want</strong> 生成一个二维码放在收银台，<strong>so that</strong> 客户扫码即可评价，不用加微信再发链接。</li>
+</ul>
+<h4>交互流程</h4>
+
+<strong>分发渠道生成：</strong>
+<li>用户进入已创建的调研详情页</li>
+<li>点击"分发"按钮</li>
+<li>展示可选分发渠道：</li>
+<p>- <strong>链接复制</strong>：一键复制 HTTPS 短链接</p>
+<p>- <strong>二维码下载</strong>：生成二维码图片（PNG/SVG），支持自定义尺寸</p>
+<p>- <strong>微信卡片</strong>：生成带品牌 logo 和描述的分享卡片（适用于微信/企业微信）</p>
+<p>- <strong>批量导入发送</strong>：上传客户手机号/微信号列表，系统自动发送（增强功能）</p>
+
+<strong>客户端体验：</strong>
+<li>客户点击链接/扫码/点击卡片</li>
+<li>进入品牌化的 NPS 问卷页面（展示品牌 logo + 品牌色）</li>
+<li>点击 0-10 分（大按钮，单手可操作）</li>
+<li>如有附加问题，滑动填写（可跳过）</li>
+<li>点击"提交" → 展示感谢语</li>
+<li>全程 ≤ 15 秒</li>
+
+<h4>数据字段/逻辑</h4>
+
+<table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>distribution_id</th><th>UUID</th><th>分发记录唯一标识</th></tr></thead>
+<tr><td>survey_id</td><td>UUID</td><td>关联的调研</td></tr>
+<tr><td>channel</td><td>Enum</td><td>link / qrcode / wechat_card / batch_sms</td></tr>
+<tr><td>short_url</td><td>String</td><td>短链接</td></tr>
+<tr><td>qr_code_url</td><td>String</td><td>二维码图片地址</td></tr>
+<tr><td>batch_list</td><td>Array</td><td>批量发送的客户列表（增强功能）</td></tr>
+<tr><td>click_count</td><td>Integer</td><td>点击/扫码次数</td></tr>
+<tr><td>submit_count</td><td>Integer</td><td>实际提交数</td></tr>
+</table>
+<strong>业务逻辑：</strong>
+<ul><li>短链接使用 6 位随机字符，有效期跟随调研状态</li>
+<li>二维码默认 300x300px，支持 500/800/1000px</li>
+<li>微信卡片格式遵循微信 JSSDK 分享规范</li>
+<li>客户端页面为 H5 响应式设计，适配手机端</li>
+<li>同一客户（通过设备指纹 + cookie 识别）同一调研只能提交一次</li>
+</ul>
+<h4>验收标准</h4>
+<li>✅ 生成的链接和二维码可在手机端正常访问</li>
+<li>✅ 客户端问卷页面品牌化展示正确</li>
+<li>✅ 客户从打开到提交 ≤ 15 秒</li>
+<li>✅ 同一客户无法重复提交</li>
+<li>✅ 二维码可下载为 PNG 和 SVG 格式</li>
+<li>✅ 分发数据统计（点击数、提交数）实时更新</li>
+
+<hr>
+
+<h3>3.3 F3 — 自动计分与分类</h3>
+
+<h4>功能描述</h4>
+<p>对收集到的 NPS 打分数据进行自动计算和分类，将每个客户归入 Promoter（推荐者）、Passive（被动满意者）、Detractor（贬损者）三个类别。</p>
+
+<h4>用户故事</h4>
+<ul><li><strong>As a</strong> 微型商家，<strong>I want</strong> 系统自动帮我算出 NPS 分数，<strong>so that</strong> 我不需要理解公式也能知道我的客户满意度水平。</li>
+</ul>
+<h4>交互流程</h4>
+
+<li>客户提交 NPS 打分后，系统实时计算</li>
+<li>分类规则自动执行，客户被标记为对应类别</li>
+<li>用户在数据看板中查看汇总结果</li>
+
+<h4>数据字段/逻辑</h4>
+
+<strong>分类规则（标准 NPS 模型）：</strong>
+
+<table><thead><tr><th>分数区间</th><th>分类</th><th>标签</th><th>颜色</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>9-10</th><th>Promoter</th><th>推荐者</th><th>🟢 绿色</th></tr></thead>
+<tr><td>7-8</td><td>Passive</td><td>被动满意者</td><td>🟡 黄色</td></tr>
+<tr><td>0-6</td><td>Detractor</td><td>贬损者</td><td>🔴 红色</td></tr>
+</table>
+<strong>NPS 计算公式：</strong>
+<pre><code>NPS = (Promoter 数量 - Detractor 数量) / 总回复数 × 100
+</code></pre>
+
+<strong>NPS 范围：</strong> -100 到 +100
+
+<strong>行业参考基准：</strong>
+<ul><li>NPS > 50：优秀</li>
+<li>NPS 30-50：良好</li>
+<li>NPS 0-30：一般</li>
+<li>NPS < 0：需要关注</li>
+</ul>
+<strong>每条回复的数据结构：</strong>
+
+<table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>response_id</th><th>UUID</th><th>回复唯一标识</th></tr></thead>
+<tr><td>survey_id</td><td>UUID</td><td>关联调研</td></tr>
+<tr><td>score</td><td>Integer</td><td>0-10 的 NPS 分数</td></tr>
+<tr><td>category</td><td>Enum</td><td>promoter / passive / detractor</td></tr>
+<tr><td>comment</td><td>String</td><td>文字留言（可选，≤ 500 字符）</td></tr>
+<tr><td>customer_info</td><td>Object</td><td>客户信息（如有采集）</td></tr>
+<tr><td>submitted_at</td><td>DateTime</td><td>提交时间</td></tr>
+<tr><td>device_fingerprint</td><td>String</td><td>设备指纹（防重复提交）</td></tr>
+</table>
+<h4>验收标准</h4>
+<li>✅ 客户提交后 ≤ 1 秒完成分类计算</li>
+<li>✅ NPS 分值计算公式正确（边界值测试：全 Promoter = 100，全 Detractor = -100）</li>
+<li>✅ 分类结果实时反映在数据看板</li>
+<li>✅ 客户端提交成功后看到感谢语（不显示分类结果）</li>
+
+<hr>
+
+<h3>3.4 F4 — 数据看板</h3>
+
+<h4>功能描述</h4>
+<p>以可视化方式展示 NPS 调研的核心数据指标，包括总 NPS 分值、客户分类占比、回复趋势、留言汇总等。</p>
+
+<h4>用户故事</h4>
+<ul><li><strong>As a</strong> 个人品牌主理人，<strong>I want</strong> 打开看板就能一眼看清我的 NPS 整体水平和变化趋势，<strong>so that</strong> 我不用做 Excel 就能做出数据驱动的决策。</li>
+</ul>
+<h4>交互流程</h4>
+
+<strong>看板入口：</strong> 用户登录后首页即为数据看板
+
+<strong>看板内容：</strong>
+
+<li><strong>顶部核心指标卡片</strong></li>
+<p>- 总 NPS 分值（大数字展示，带颜色标识）</p>
+<p>- 总回复数</p>
+<p>- Promoter / Passive / Detractor 各自数量和占比（饼图）</p>
+
+<li><strong>趋势图</strong></li>
+<p>- X 轴：时间（日/周/月可切换）</p>
+<p>- Y 轴：NPS 分值</p>
+<p>- 展示 NPS 随时间的变化曲线</p>
+<p>- 支持多个调研的趋势对比</p>
+
+<li><strong>客户分层列表</strong></li>
+<p>- 三个 Tab：Promoter / Passive / Detractor</p>
+<p>- 每个 Tab 展示客户列表（如有采集客户信息）</p>
+<p>- 点击可查看单个客户的详细回复</p>
+
+<li><strong>留言汇总</strong></li>
+<p>- 展示所有文字留言</p>
+<p>- 按时间倒序排列</p>
+<p>- 高亮显示 Detractor 留言（红色背景）</p>
+<p>- 支持按分类筛选</p>
+
+<h4>数据字段/逻辑</h4>
+
+<strong>看板 API 返回结构：</strong>
+<pre><code>{
+<p>"nps_score": 42,</p>
+<p>"total_responses": 150,</p>
+<p>"categories": {</p>
+<p>"promoter": { "count": 75, "percentage": 50 },</p>
+<p>"passive": { "count": 45, "percentage": 30 },</p>
+<p>"detractor": { "count": 30, "percentage": 20 }</p>
+<p>},</p>
+<p>"trend": [</p>
+<p>{ "date": "2026-07-01", "nps": 38, "responses": 20 },</p>
+<p>{ "date": "2026-07-02", "nps": 42, "responses": 25 }</p>
+<p>],</p>
+<p>"recent_comments": [</p>
+<p>{</p>
+<p>"response_id": "...",</p>
+<p>"score": 3,</p>
+<p>"category": "detractor",</p>
+<p>"comment": "课程内容太理论了",</p>
+<p>"submitted_at": "2026-07-05T10:30:00Z"</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+</code></pre>
+
+<h4>验收标准</h4>
+<li>✅ 看板页面加载时间 ≤ 2 秒</li>
+<li>✅ NPS 分值计算准确，与手动计算一致</li>
+<li>✅ 趋势图支持日/周/月切换</li>
+<li>✅ 留言列表支持按分类筛选</li>
+<li>✅ 移动端看板适配良好（响应式布局）</li>
+
+<hr>
+
+<h3>3.5 F5 — 客户分层标签</h3>
+
+<h4>功能描述</h4>
+<p>基于 NPS 打分结果自动给客户打标签，支持标签管理和客户列表导出，帮助用户进行精细化运营。</p>
+
+<h4>用户故事</h4>
+<ul><li><strong>As a</strong> 微型电商商家，<strong>I want</strong> 导出 Promoter 客户名单并给他们发专属优惠，<strong>so that</strong> 我能激活高满意度客户的复购和转介绍。</li>
+</ul>
+<h4>交互流程</h4>
+
+<li>系统自动根据 NPS 分数给客户打标签（Promoter / Passive / Detractor）</li>
+<li>用户可在"客户管理"页面查看所有带标签的客户</li>
+<li>支持按标签筛选客户列表</li>
+<li>支持导出为 CSV/Excel 格式</li>
+<li>标签随新的 NPS 回复自动更新（取最新一次打分）</li>
+
+<h4>数据字段/逻辑</h4>
+
+<strong>客户标签数据结构：</strong>
+
+<table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>customer_id</th><th>UUID</th><th>客户唯一标识</th></tr></thead>
+<tr><td>name</td><td>String</td><td>客户姓名（如有采集）</td></tr>
+<tr><td>phone</td><td>String</td><td>手机号（如有采集）</td></tr>
+<tr><td>wechat_id</td><td>String</td><td>微信号（如有采集）</td></tr>
+<tr><td>current_score</td><td>Integer</td><td>最新 NPS 分数</td></tr>
+<tr><td>current_category</td><td>Enum</td><td>当前分类</td></tr>
+<tr><td>score_history</td><td>Array</td><td>历史打分记录</td></tr>
+<tr><td>first_survey_at</td><td>DateTime</td><td>首次参与调研时间</td></tr>
+<tr><td>last_survey_at</td><td>DateTime</td><td>最近参与调研时间</td></tr>
+</table>
+<strong>业务逻辑：</strong>
+<ul><li>标签取客户最新一次 NPS 打分结果</li>
+<li>如果客户参与了多次调研，保留历史记录</li>
+<li>导出时包含所有可选字段</li>
+<li>支持自定义标签（增强功能）</li>
+</ul>
+<h4>验收标准</h4>
+<li>✅ 客户标签根据最新打分自动更新</li>
+<li>✅ 客户列表支持按标签筛选</li>
+<li>✅ 导出功能正常（CSV 和 Excel 格式）</li>
+<li>✅ 历史打分记录可追溯</li>
+
+<hr>
+
+<h3>3.6 F6 — Detractor 告警</h3>
+
+<h4>功能描述</h4>
+<p>当收到低分（Detractor）回复时，实时通知主理人，确保第一时间了解不满客户并采取行动。</p>
+
+<h4>用户故事</h4>
+<ul><li><strong>As a</strong> 线下门店老板，<strong>I want</strong> 收到差评时立即收到微信通知，<strong>so that</strong> 我能在客户离开前或问题扩大前主动联系客户挽回。</li>
+</ul>
+<h4>交互流程</h4>
+
+<strong>告警触发：</strong>
+<li>客户提交 NPS 打分 ≤ 6 分</li>
+<li>系统立即触发告警</li>
+
+<strong>告警通知方式：</strong>
+<li><strong>微信服务号消息</strong>（首选）：</li>
+<p>- 推送模板消息到主理人微信</p>
+<p>- 内容："[品牌名] 收到一条低分反馈（X 分），客户留言：[留言内容]"</p>
+<p>- 点击跳转到该条回复详情页</p>
+<li><strong>短信通知</strong>（备选）：</li>
+<p>- 微信未关注时使用短信</p>
+<li><strong>站内通知</strong>：</li>
+<p>- 用户登录后在通知中心查看</p>
+
+<strong>告警设置：</strong>
+<ul><li>用户可设置告警阈值（默认 ≤ 6 分）</li>
+<li>可设置免打扰时段（默认 23:00-08:00 不推送）</li>
+<li>可选择通知渠道（微信/短信/仅站内）</li>
+</ul>
+<h4>数据字段/逻辑</h4>
+
+<table><thead><tr><th>字段</th><th>类型</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>alert_id</th><th>UUID</th><th>告警唯一标识</th></tr></thead>
+<tr><td>response_id</td><td>UUID</td><td>关联的回复</td></tr>
+<tr><td>survey_id</td><td>UUID</td><td>关联的调研</td></tr>
+<tr><td>score</td><td>Integer</td><td>触发告警的分数</td></tr>
+<tr><td>channel</td><td>Enum</td><td>wechat / sms / in_app</td></tr>
+<tr><td>sent_at</td><td>DateTime</td><td>发送时间</td></tr>
+<tr><td>read_at</td><td>DateTime</td><td>阅读时间</td></tr>
+<tr><td>status</td><td>Enum</td><td>pending / sent / read</td></tr>
+</table>
+<strong>业务逻辑：</strong>
+<ul><li>告警在回复提交后 ≤ 30 秒内发送</li>
+<li>免打扰时段的告警延迟到时段结束后批量发送</li>
+<li>同一调研的告警频率限制：每小时最多 20 条</li>
+</ul>
+<h4>验收标准</h4>
+<li>✅ 低分回复提交后 ≤ 30 秒内触发通知</li>
+<li>✅ 微信模板消息正常推送且内容准确</li>
+<li>✅ 免打扰时段设置生效</li>
+<li>✅ 告警记录可追溯</li>
+
+<hr>
+
+<h3>3.7 F7 — 留言分析</h3>
+
+<h4>功能描述</h4>
+<p>收集并展示客户文字反馈，支持关键词提取和分类展示，帮助用户快速理解客户的真实想法。</p>
+
+<h4>用户故事</h4>
+<ul><li><strong>As a</strong> 知识付费主理人，<strong>I want</strong> 看到客户留言的关键词汇总，<strong>so that</strong> 我能快速发现共性问题，而不是逐条阅读 100 条留言。</li>
+</ul>
+<h4>交互流程</h4>
+
+<li>用户进入"留言分析"页面</li>
+<li>展示所有文字留言列表（按时间倒序）</li>
+<li>顶部展示关键词词云（基于分词 + 词频统计）</li>
+<li>支持按 NPS 分类筛选（Promoter / Detractor 留言分开看）</li>
+<li>支持按关键词搜索留言</li>
+<li>点击单条留言可查看完整内容和客户信息</li>
+
+<h4>数据字段/逻辑</h4>
+
+<strong>关键词提取逻辑：</strong>
+<li>对所有留言文本进行中文分词（jieba 分词引擎）</li>
+<li>过滤停用词（"的"、"了"、"是"等）</li>
+<li>统计词频，取 Top 20 关键词</li>
+<li>关键词大小按词频比例展示（词云效果）</li>
+
+<strong>数据结构：</strong>
+<pre><code>{
+<p>"keywords": [</p>
+<p>{ "word": "课程", "count": 45, "sentiment": "neutral" },</p>
+<p>{ "word": "实操", "count": 32, "sentiment": "negative" },</p>
+<p>{ "word": "老师", "count": 28, "sentiment": "positive" }</p>
+<p>],</p>
+<p>"comments": [</p>
+<p>{</p>
+<p>"response_id": "...",</p>
+<p>"score": 4,</p>
+<p>"category": "detractor",</p>
+<p>"comment": "课程太理论了，希望多一些实操",</p>
+<p>"keywords": ["课程", "理论", "实操"],</p>
+<p>"submitted_at": "2026-07-05T10:30:00Z"</p>
+<p>}</p>
+<p>]</p>
+<p>}</p>
+</code></pre>
+
+<h4>验收标准</h4>
+<li>✅ 关键词提取准确（中文分词正确率 ≥ 90%）</li>
+<li>✅ 词云展示正常，点击关键词可筛选相关留言</li>
+<li>✅ 留言支持按分类和关键词筛选</li>
+<li>✅ 页面加载时间 ≤ 3 秒（1000 条留言以内）</li>
+
+<hr>
+
+<h2>4. 盈利模式</h2>
+
+<h3>4.1 定价策略</h3>
+
+<p>基于已有三档定价，结合用户画像和功能分层：</p>
+
+<table><thead><tr><th>套餐</th><th>价格</th><th>定位</th><th>核心功能</th><th>目标用户</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>入门版</strong></th><th>¥999/年</th><th>快速验证</th><th>F1-F4（调研创建、分发、计分、看板）</th><th>角色 A/C：刚开始尝试 NPS 的个人品牌和门店</th></tr></thead>
+<tr><td><strong>标准版</strong></td><td>¥2999/年</td><td>深度使用</td><td>入门版 + F5-F7（客户分层、告警、留言分析）</td><td>角色 B：需要精细化运营的电商商家</td></tr>
+<tr><td><strong>尊享版</strong></td><td>¥6999/年</td><td>全面管理</td><td>标准版 + 增强功能 + 优先客服 + 1v1 指导</td><td>已验证 NPS 价值、准备系统化的成长型商家</td></tr>
+</table>
+<strong>定价逻辑：</strong>
+<ul><li><strong>入门版 ¥999</strong>：覆盖 1 个调研项目，500 条回复/年。价格低于一次营销活动成本，降低决策门槛。</li>
+<li><strong>标准版 ¥2999</strong>：覆盖 5 个调研项目，2000 条回复/年。增加自动化和分析功能，提升使用粘性。</li>
+<li><strong>尊享版 ¥6999</strong>：不限调研项目，10000 条回复/年。包含 1v1 指导，作为向 NPS PLUS 升级的跳板。</li>
+</ul>
+<h3>4.2 收入模型</h3>
+
+<strong>推荐：订阅制为主 + 增值服务</strong>
+
+<table><thead><tr><th>收入来源</th><th>模式</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>套餐订阅</strong></th><th>年付（主推）/ 季付</th><th>年付享 85 折优惠（如入门版年付 ¥999，季付 ¥299/季）</th></tr></thead>
+<tr><td><strong>回复量超额包</strong></td><td>一次性</td><td>超出套餐回复额度后按量购买（¥0.5/条）</td></tr>
+<tr><td><strong>定制化服务</strong></td><td>一次性</td><td>品牌定制问卷模板、专属报告模板（¥500-2000）</td></tr>
+<tr><td><strong>培训课程</strong></td><td>一次性</td><td>NPS 方法论入门课程（¥199），作为获客和教育工具</td></tr>
+</table>
+<strong>收入预测（保守估计）：</strong>
+
+<table><thead><tr><th>时间</th><th>用户数</th><th>ARPU（年）</th><th>年收入</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>第 1 年</th><th>200</th><th>¥1,500</th><th>¥300,000</th></tr></thead>
+<tr><td>第 2 年</td><td>800</td><td>¥2,000</td><td>¥1,600,000</td></tr>
+<tr><td>第 3 年</td><td>2,000</td><td>¥2,500</td><td>¥5,000,000</td></tr>
+</table>
+<p>（ARPU 随时间提升，因用户从入门版向标准/尊享版升级）</p>
+
+<h3>4.3 成本结构</h3>
+
+<table><thead><tr><th>成本类别</th><th>明细</th><th>月度估算</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>工具/基础设施</strong></th><th>云服务器</th><th>¥2,000</th><th>初期 2 台 ECS + 数据库</th></tr></thead>
+<tr><td></td><td>短信服务</td><td>¥500</td><td>告警通知短信费用</td></tr>
+<tr><td></td><td>微信服务号认证</td><td>¥83</td><td>¥300/年，摊到月</td></tr>
+<tr><td></td><td>CDN + 域名</td><td>¥200</td><td>静态资源加速</td></tr>
+<tr><td></td><td>第三方服务</td><td>¥300</td><td>分词引擎、数据分析等</td></tr>
+<tr><td><strong>小计：工具成本</strong></td><td></td><td><strong>¥3,083/月</strong></td><td></td></tr>
+<tr><td><strong>人力成本</strong></td><td>产品经理（兼职）</td><td>¥8,000</td><td>初期可由创始人兼任</td></tr>
+<tr><td></td><td>前端开发</td><td>¥15,000</td><td>1 名全职</td></tr>
+<tr><td></td><td>后端开发</td><td>¥15,000</td><td>1 名全职</td></tr>
+<tr><td></td><td>设计（外包）</td><td>¥3,000</td><td>UI/UX 外包</td></tr>
+<tr><td><strong>小计：人力成本</strong></td><td></td><td><strong>¥41,000/月</strong></td><td>初期约 2-3 人核心团队</td></tr>
+<tr><td><strong>获客成本</strong></td><td>内容营销</td><td>¥2,000</td><td>公众号/小红书内容输出</td></tr>
+<tr><td></td><td>社群运营</td><td>¥1,000</td><td>社群活动和裂变</td></tr>
+<tr><td></td><td>付费投放</td><td>¥3,000</td><td>小红书/朋友圈广告</td></tr>
+<tr><td><strong>小计：获客成本</strong></td><td></td><td><strong>¥6,000/月</strong></td><td></td></tr>
+<tr><td><strong>月度总成本</strong></td><td></td><td><strong>¥50,083/月</strong></td><td><strong>约 ¥60 万/年</strong></td></tr>
+</table>
+<h3>4.4 盈亏平衡分析</h3>
+
+<strong>假设场景：</strong>
+
+<table><thead><tr><th>变量</th><th>数值</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>年固定成本</th><th>¥600,000</th></tr></thead>
+<tr><td>入门版占比</td><td>60%（¥999/年）</td></tr>
+<tr><td>标准版占比</td><td>30%（¥2999/年）</td></tr>
+<tr><td>尊享版占比</td><td>10%（¥6999/年）</td></tr>
+<tr><td>加权 ARPU</td><td>0.6×999 + 0.3×2999 + 0.1×6999 = <strong>¥2,199/年</strong></td></tr>
+<tr><td>每用户边际成本</td><td>¥100/年（短信、存储等）</td></tr>
+<tr><td>每用户毛利</td><td>¥2,099/年</td></tr>
+</table>
+<strong>盈亏平衡点：</strong>
+<pre><code>盈亏平衡用户数 = 年固定成本 / 每用户毛利
+<p>= ¥600,000 / ¥2,099</p>
+<p>≈ 286 个付费用户</p>
+</code></pre>
+
+<strong>时间预估：</strong>
+<ul><li>按每月净增 25 个付费用户计算</li>
+<li>约 <strong>12 个月</strong>达到盈亏平衡</li>
+<li>第 18 个月累计 450 用户，年利润约 ¥34 万</li>
+</ul>
+<h3>4.5 后续变现路径：GO → PLUS → Counseling 升级漏斗</h3>
+
+<pre><code>NPS GO (¥999-6999/年)
+<p>│</p>
+<p>│ 用户验证 NPS 价值后，需求升级</p>
+<p>│ 升级触发条件：</p>
+<p>│   - 营收超过 50 万</p>
+<p>│   - 团队超过 3 人</p>
+<p>│   - 需要多维度满意度体系</p>
+<p>│   - 需要行业对标数据</p>
+<p>│</p>
+<p>▼</p>
+<p>NPS PLUS (¥19,999-49,999/年)</p>
+<p>│</p>
+<p>│ 体系化运营后，遇到战略级问题</p>
+<p>│ 升级触发条件：</p>
+<p>│   - 需要全渠道满意度整合</p>
+<p>│   - 需要组织级满意度管理</p>
+<p>│   - 需要竞品对标分析</p>
+<p>│</p>
+<p>▼</p>
+<p>NPS Counseling (项目制 ¥50,000-200,000)</p>
+<p>│</p>
+<p>│ 独立咨询项目</p>
+<p>│ 定制化满意度诊断 + 改善方案 + 落地陪跑</p>
+</code></pre>
+
+<strong>漏斗转化预估：</strong>
+<ul><li>GO → PLUS 转化率：5-10%（每年）</li>
+<li>GO → Counseling 转化率：1-2%（每年）</li>
+<li>GO 用户生命周期价值（LTV）：</li>
+</ul>  - 假设平均留存 2 年，ARPU ¥2,199 → LTV ≈ ¥4,400
+<p>- 如 5% 升级 PLUS（均价 ¥30,000）→ 额外 LTV 贡献 ¥1,500/用户</p>
+<p>- <strong>综合 LTV ≈ ¥5,900/用户</strong></p>
+
+<hr>
+
+<h2>5. MVP 定义</h2>
+
+<h3>5.1 Phase 1：最小可行产品（目标：4 周上线）</h3>
+
+<strong>核心原则：</strong> 用最小成本验证"用户是否愿意用 NPS 工具收集客户反馈"这一核心假设。
+
+<table><thead><tr><th>功能</th><th>MVP 范围</th><th>实现方式</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>F1 调研创建</strong></th><th>✅ 包含</th><th>仅支持 NPS 核心问题 + 1 个附加问题；暂不支持 logo 上传和品牌色自定义</th></tr></thead>
+<tr><td><strong>F2 多渠道分发</strong></td><td>✅ 包含</td><td>仅支持链接复制和二维码下载；暂不支持微信卡片和批量发送</td></tr>
+<tr><td><strong>F3 自动计分</strong></td><td>✅ 包含</td><td>标准 NPS 计算 + 三分类；全自动化</td></tr>
+<tr><td><strong>F4 数据看板</strong></td><td>✅ 包含</td><td>仅展示核心指标卡片 + 留言列表；暂不支持趋势图和多调研对比</td></tr>
+<tr><td><strong>F5 客户分层</strong></td><td>⚠️ 半自动</td><td>系统自动分类，但导出功能需手动操作（暂不支持一键导出）</td></tr>
+<tr><td><strong>F6 Detractor 告警</strong></td><td>❌ 不含</td><td>MVP 阶段用户手动查看看板；后续迭代加入</td></tr>
+<tr><td><strong>F7 留言分析</strong></td><td>❌ 不含</td><td>MVP 阶段仅展示原始留言列表；关键词分析后续迭代</td></tr>
+</table>
+<h3>5.2 手动/半自动 vs 自动化</h3>
+
+<table><thead><tr><th>事项</th><th>MVP 实现方式</th><th>后续自动化</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>客户信息采集</strong></th><th>调研中增加"姓名（选填）"字段</th><th>对接电商订单系统自动填充</th></tr></thead>
+<tr><td><strong>Detractor 告警</strong></td><td>用户每天手动查看看板</td><td>自动微信/短信告警</td></tr>
+<tr><td><strong>客户分层导出</strong></td><td>后台手动筛选 + 复制到 Excel</td><td>一键导出 CSV/Excel</td></tr>
+<tr><td><strong>品牌定制</strong></td><td>使用通用模板</td><td>支持 logo、品牌色、自定义模板</td></tr>
+<tr><td><strong>支付和开通</strong></td><td>人工收款 + 手动开通账号</td><td>接入支付系统自动开通</td></tr>
+<tr><td><strong>客服支持</strong></td><td>微信群 1v1 答疑</td><td>工单系统 + FAQ</td></tr>
+<tr><td><strong>数据备份</strong></td><td>每日手动备份数据库</td><td>自动化备份 + 灾备</td></tr>
+</table>
+<h3>5.3 MVP 技术方案概要</h3>
+
+<table><thead><tr><th>层级</th><th>技术选型</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>前端</strong></th><th>微信小程序 + H5（响应式）</th><th>小程序用于管理后台，H5 用于客户端问卷填写</th></tr></thead>
+<tr><td><strong>后端</strong></td><td>Node.js / Python FastAPI</td><td>轻量级，快速开发</td></tr>
+<tr><td><strong>数据库</strong></td><td>PostgreSQL</td><td>结构化数据存储</td></tr>
+<tr><td><strong>部署</strong></td><td>阿里云 ECS</td><td>初期 2 台（应用 + 数据库）</td></tr>
+<tr><td><strong>短信</strong></td><td>阿里云短信</td><td>告警通知</td></tr>
+<tr><td><strong>二维码</strong></td><td>qrcode.js</td><td>前端生成</td></tr>
+</table>
+<h3>5.4 MVP 验证指标</h3>
+
+<table><thead><tr><th>指标</th><th>目标</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th><strong>注册转化率</strong></th><th>访问 → 注册 ≥ 15%</th><th>验证产品吸引力</th></tr></thead>
+<tr><td><strong>调研创建率</strong></td><td>注册 → 创建调研 ≥ 60%</td><td>验证功能易用性</td></tr>
+<tr><td><strong>问卷回收率</strong></td><td>发送 → 填写 ≥ 30%</td><td>验证客户端体验</td></tr>
+<tr><td><strong>7 日留存率</strong></td><td>创建调研后 7 天内再次登录 ≥ 40%</td><td>验证产品粘性</td></tr>
+<tr><td><strong>付费转化率</strong></td><td>免费试用 → 付费 ≥ 10%</td><td>验证商业模型</td></tr>
+</table>
+<h3>5.5 MVP 上线计划</h3>
+
+<table><thead><tr><th>周次</th><th>里程碑</th><th>交付物</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>W1</th><th>需求确认 + 技术方案</th><th>PRD 定稿、技术架构文档</th></tr></thead>
+<tr><td>W2</td><td>核心开发（调研创建 + 计分）</td><td>后端 API + 数据库</td></tr>
+<tr><td>W3</td><td>核心开发（分发 + 看板）</td><td>前端页面 + 客户端问卷</td></tr>
+<tr><td>W4</td><td>联调测试 + 上线</td><td>MVP 产品上线，邀请种子用户测试</td></tr>
+</table>
+<hr>
+
+<h2>附录</h2>
+
+<h3>A. 竞品参考</h3>
+
+<table><thead><tr><th>竞品</th><th>定位</th><th>价格</th><th>优势</th><th>劣势</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>SurveyMonkey</th><th>通用问卷工具</th><th>$25/月起</th><th>功能全面</th><th>非 NPS 专业工具，学习成本高</th></tr></thead>
+<tr><td>Delighted</td><td>NPS 专业工具</td><td>$224/月起</td><td>NPS 功能完善</td><td>价格高，无中文支持</td></tr>
+<tr><td>问卷星</td><td>国内通用问卷</td><td>免费-¥5000/年</td><td>价格低，中文友好</td><td>非 NPS 专业工具，缺乏分析功能</td></tr>
+<tr><td>碧莲盛 NPS</td><td>国内 NPS 工具</td><td>定制报价</td><td>本地化</td><td>面向大企业，价格高</td></tr>
+</table>
+<strong>NPS GO 差异化定位：</strong> 国内首个面向微型商家的 NPS 专业工具，兼具专业性和低门槛。
+
+<h3>B. 术语表</h3>
+
+<table><thead><tr><th>术语</th><th>说明</th></tr></thead>
+</table><!--table-sep-->
+<table><thead><tr><th>NPS</th><th>Net Promoter Score，净推荐值，衡量客户忠诚度的核心指标</th></tr></thead>
+<tr><td>Promoter</td><td>推荐者，NPS 打分 9-10 分的客户</td></tr>
+<tr><td>Passive</td><td>被动满意者，NPS 打分 7-8 分的客户</td></tr>
+<tr><td>Detractor</td><td>贬损者，NPS 打分 0-6 分的客户</td></tr>
+<tr><td>ARPU</td><td>Average Revenue Per User，每用户平均收入</td></tr>
+<tr><td>LTV</td><td>Lifetime Value，用户生命周期价值</td></tr>
+<tr><td>MVP</td><td>Minimum Viable Product，最小可行产品</td></tr>
+</table>
+<hr>
+
+<blockquote><p><strong>文档编制：</strong> NPS Pulse 产品团队  </p></blockquote>
+<blockquote><p><strong>最后更新：</strong> 2026-07-05  </p></blockquote>
+<blockquote><p><strong>审阅状态：</strong> 待总经理审阅  </p></blockquote>
+
+</div>
+</body>
+</html>
